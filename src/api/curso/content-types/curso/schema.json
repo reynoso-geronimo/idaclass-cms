@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cursos",
+  "info": {
+    "singularName": "curso",
+    "pluralName": "cursos",
+    "displayName": "Cursos",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string"
+    },
+    "Descripcion": {
+      "type": "string"
+    },
+    "Imagen": {
+      "type": "string"
+    },
+    "Modalidad": {
+      "type": "enumeration",
+      "enum": [
+        "Online",
+        "Presencial",
+        "Hibrido"
+      ]
+    },
+    "Precio": {
+      "type": "biginteger"
+    },
+    "duracion": {
+      "type": "string"
+    }
+  }
+}

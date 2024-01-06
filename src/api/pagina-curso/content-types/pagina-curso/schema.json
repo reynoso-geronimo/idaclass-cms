@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pagina_cursos",
+  "info": {
+    "singularName": "pagina-curso",
+    "pluralName": "pagina-cursos",
+    "displayName": "PaginaCurso",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcionuno": {
+      "type": "string"
+    },
+    "descripciondos": {
+      "type": "string"
+    },
+    "descripciontres": {
+      "type": "string"
+    },
+    "check1": {
+      "type": "string"
+    },
+    "check2": {
+      "type": "string"
+    },
+    "check3": {
+      "type": "string"
+    },
+    "check4": {
+      "type": "string"
+    },
+    "modulos": {
+      "type": "json"
+    },
+    "curso": {
+      "type": "integer"
+    }
+  }
+}
