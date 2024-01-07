@@ -13,13 +13,13 @@
   "pluginOptions": {},
   "attributes": {
     "descripcionuno": {
-      "type": "string"
+      "type": "text"
     },
     "descripciondos": {
-      "type": "string"
+      "type": "text"
     },
     "descripciontres": {
-      "type": "string"
+      "type": "text"
     },
     "check1": {
       "type": "string"
