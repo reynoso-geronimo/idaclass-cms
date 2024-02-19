@@ -362,80 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiCursoCurso extends Schema.CollectionType {
-  collectionName: 'cursos';
-  info: {
-    singularName: 'curso';
-    pluralName: 'cursos';
-    displayName: 'Cursos';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Nombre: Attribute.String;
-    Descripcion: Attribute.String;
-    Imagen: Attribute.String;
-    Modalidad: Attribute.Enumeration<['Online', 'Presencial', 'Hibrido']>;
-    Precio: Attribute.BigInteger;
-    duracion: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::curso.curso',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::curso.curso',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPaginaCursoPaginaCurso extends Schema.CollectionType {
-  collectionName: 'pagina_cursos';
-  info: {
-    singularName: 'pagina-curso';
-    pluralName: 'pagina-cursos';
-    displayName: 'PaginaCurso';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    descripcionuno: Attribute.Text;
-    descripciondos: Attribute.Text;
-    descripciontres: Attribute.Text;
-    check1: Attribute.String;
-    check2: Attribute.String;
-    check3: Attribute.String;
-    check4: Attribute.String;
-    modulos: Attribute.JSON;
-    curso: Attribute.Integer;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pagina-curso.pagina-curso',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pagina-curso.pagina-curso',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -845,22 +771,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
 export interface ApiBlogBlog extends Schema.CollectionType {
   collectionName: 'blogs';
   info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
+    singularName: 'blog';
+    pluralName: 'blogs';
+    displayName: 'Blog';
   };
   options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
+    draftAndPublish: true;
   };
   attributes: {
     titulo: Attribute.String;
@@ -889,16 +805,64 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    titulo: Attribute.String;
-    introduccion: Attribute.Text;
-    foto: Attribute.String;
-    cuerpo: Attribute.Blocks;
+    Nombre: Attribute.String;
+    Descripcion: Attribute.String;
+    Imagen: Attribute.String;
+    Modalidad: Attribute.Enumeration<['Online', 'Presencial', 'Hibrido']>;
+    Precio: Attribute.BigInteger;
+    duracion: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+    createdBy: Attribute.Relation<
+      'api::curso.curso',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
-    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+    updatedBy: Attribute.Relation<
+      'api::curso.curso',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPaginaCursoPaginaCurso extends Schema.CollectionType {
+  collectionName: 'pagina_cursos';
+  info: {
+    singularName: 'pagina-curso';
+    pluralName: 'pagina-cursos';
+    displayName: 'PaginaCurso';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    descripcionuno: Attribute.Text;
+    descripciondos: Attribute.Text;
+    descripciontres: Attribute.Text;
+    check1: Attribute.String;
+    check2: Attribute.String;
+    check3: Attribute.String;
+    check4: Attribute.String;
+    modulos: Attribute.JSON;
+    curso: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pagina-curso.pagina-curso',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pagina-curso.pagina-curso',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -913,8 +877,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::curso.curso': ApiCursoCurso;
-      'api::pagina-curso.pagina-curso': ApiPaginaCursoPaginaCurso;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -924,6 +886,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog.blog': ApiBlogBlog;
+      'api::curso.curso': ApiCursoCurso;
+      'api::pagina-curso.pagina-curso': ApiPaginaCursoPaginaCurso;
     }
   }
 }
