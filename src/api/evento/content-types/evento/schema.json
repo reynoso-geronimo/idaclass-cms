@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "eventos",
+  "info": {
+    "singularName": "evento",
+    "pluralName": "eventos",
+    "displayName": "Evento",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "clasificacion": {
+      "type": "string"
+    },
+    "fecha": {
+      "type": "datetime",
+      "required": true
+    },
+    "profesional": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profesional.profesional"
+    },
+    "cuerpo": {
+      "type": "blocks"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ventas",
+  "info": {
+    "singularName": "venta",
+    "pluralName": "ventas",
+    "displayName": "venta",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "paymentId": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
+    },
+    "monto": {
+      "type": "decimal"
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "biginteger"
+    }
+  }
+}

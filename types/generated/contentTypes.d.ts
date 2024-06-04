@@ -722,7 +722,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -751,6 +750,8 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    given_name: Attribute.String;
+    family_name: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -774,6 +775,7 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     singularName: 'blog';
     pluralName: 'blogs';
     displayName: 'Blog';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -783,12 +785,65 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     introduccion: Attribute.Text;
     foto: Attribute.String;
     cuerpo: Attribute.Blocks;
+    subtitulo: Attribute.String;
+    tag: Attribute.String;
+    cursos_formacion: Attribute.Relation<
+      'api::blog.blog',
+      'oneToOne',
+      'api::cursos-formacion.cursos-formacion'
+    >;
+    categoria: Attribute.Relation<
+      'api::blog.blog',
+      'oneToOne',
+      'api::categoria.categoria'
+    >;
+    profesional: Attribute.Relation<
+      'api::blog.blog',
+      'oneToOne',
+      'api::profesional.profesional'
+    >;
+    cursosEmbudo: Attribute.Relation<
+      'api::blog.blog',
+      'manyToMany',
+      'api::cursos-formacion.cursos-formacion'
+    >;
+    destacada: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCategoriaCategoria extends Schema.CollectionType {
+  collectionName: 'categorias';
+  info: {
+    singularName: 'categoria';
+    pluralName: 'categorias';
+    displayName: 'categorias';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    nombre: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -802,18 +857,31 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
-    Nombre: Attribute.String;
-    Descripcion: Attribute.String;
-    Imagen: Attribute.String;
-    Modalidad: Attribute.Enumeration<['Online', 'Presencial', 'Hibrido']>;
-    Precio: Attribute.BigInteger;
-    duracion: Attribute.String;
+    nombre: Attribute.String;
+    descripcion: Attribute.Text;
+    precio: Attribute.BigInteger;
+    categoria: Attribute.Relation<
+      'api::curso.curso',
+      'oneToOne',
+      'api::categoria.categoria'
+    >;
+    objetivoTexto: Attribute.Text;
+    perfilTexto: Attribute.Text;
+    modulos: Attribute.JSON;
+    profesional: Attribute.Relation<
+      'api::curso.curso',
+      'oneToOne',
+      'api::profesional.profesional'
+    >;
+    acerca_curso: Attribute.Blocks;
+    videoid: Attribute.String;
+    duracion: Attribute.Integer;
+    dirigido: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::curso.curso',
       'oneToOne',
@@ -829,37 +897,164 @@ export interface ApiCursoCurso extends Schema.CollectionType {
   };
 }
 
-export interface ApiPaginaCursoPaginaCurso extends Schema.CollectionType {
-  collectionName: 'pagina_cursos';
+export interface ApiCursosFormacionCursosFormacion
+  extends Schema.CollectionType {
+  collectionName: 'cursos_formacions';
   info: {
-    singularName: 'pagina-curso';
-    pluralName: 'pagina-cursos';
-    displayName: 'PaginaCurso';
+    singularName: 'cursos-formacion';
+    pluralName: 'cursos-formacions';
+    displayName: 'CursosFormacion';
     description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    descripcionuno: Attribute.Text;
-    descripciondos: Attribute.Text;
-    descripciontres: Attribute.Text;
-    check1: Attribute.String;
-    check2: Attribute.String;
-    check3: Attribute.String;
-    check4: Attribute.String;
+    nombre: Attribute.String & Attribute.Required & Attribute.Unique;
+    descripcion: Attribute.Text;
+    duracion: Attribute.String;
+    frecuencia: Attribute.String;
+    modalidades: Attribute.Enumeration<
+      ['Online', 'Presencial', 'Online - Presencial']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'Online'>;
     modulos: Attribute.JSON;
-    curso: Attribute.Integer;
+    trainers: Attribute.String;
+    videoid: Attribute.String;
+    contenido: Attribute.String;
+    acerca: Attribute.Text;
+    ojetivoTituloUno: Attribute.String;
+    ojetivoTextoUno: Attribute.Text;
+    ojetivoTituloDos: Attribute.String;
+    ojetivoTextoDos: Attribute.Text;
+    ojetivoTituloTres: Attribute.String;
+    ojetivoTextoTres: Attribute.Text;
+    perfilTituloUno: Attribute.String;
+    perfilTextoUno: Attribute.Text;
+    perfilTituloDos: Attribute.String;
+    perfilTextoDos: Attribute.Text;
+    perfilTituloTres: Attribute.String;
+    perfilTextoTres: Attribute.Text;
+    precio: Attribute.BigInteger;
+    acercaCurso: Attribute.Blocks;
+    blogs: Attribute.Relation<
+      'api::cursos-formacion.cursos-formacion',
+      'manyToMany',
+      'api::blog.blog'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::pagina-curso.pagina-curso',
+      'api::cursos-formacion.cursos-formacion',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::pagina-curso.pagina-curso',
+      'api::cursos-formacion.cursos-formacion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEventoEvento extends Schema.CollectionType {
+  collectionName: 'eventos';
+  info: {
+    singularName: 'evento';
+    pluralName: 'eventos';
+    displayName: 'Evento';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required;
+    clasificacion: Attribute.String;
+    fecha: Attribute.DateTime & Attribute.Required;
+    profesional: Attribute.Relation<
+      'api::evento.evento',
+      'oneToOne',
+      'api::profesional.profesional'
+    >;
+    cuerpo: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::evento.evento',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::evento.evento',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProfesionalProfesional extends Schema.CollectionType {
+  collectionName: 'profesionals';
+  info: {
+    singularName: 'profesional';
+    pluralName: 'profesionals';
+    displayName: 'Profesional';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    nombre: Attribute.String & Attribute.Required;
+    titulo: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::profesional.profesional',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::profesional.profesional',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVentaVenta extends Schema.CollectionType {
+  collectionName: 'ventas';
+  info: {
+    singularName: 'venta';
+    pluralName: 'ventas';
+    displayName: 'venta';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    paymentId: Attribute.BigInteger & Attribute.Required & Attribute.Unique;
+    monto: Attribute.Decimal;
+    descripcion: Attribute.String;
+    userId: Attribute.BigInteger;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::venta.venta',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::venta.venta',
       'oneToOne',
       'admin::user'
     > &
@@ -886,8 +1081,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog.blog': ApiBlogBlog;
+      'api::categoria.categoria': ApiCategoriaCategoria;
       'api::curso.curso': ApiCursoCurso;
-      'api::pagina-curso.pagina-curso': ApiPaginaCursoPaginaCurso;
+      'api::cursos-formacion.cursos-formacion': ApiCursosFormacionCursosFormacion;
+      'api::evento.evento': ApiEventoEvento;
+      'api::profesional.profesional': ApiProfesionalProfesional;
+      'api::venta.venta': ApiVentaVenta;
     }
   }
 }

@@ -1,0 +1,103 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cursos_formacions",
+  "info": {
+    "singularName": "cursos-formacion",
+    "pluralName": "cursos-formacions",
+    "displayName": "CursosFormacion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "duracion": {
+      "type": "string"
+    },
+    "frecuencia": {
+      "type": "string"
+    },
+    "modalidades": {
+      "type": "enumeration",
+      "enum": [
+        "Online",
+        "Presencial",
+        "Online - Presencial"
+      ],
+      "default": "Online",
+      "required": true
+    },
+    "modulos": {
+      "type": "json"
+    },
+    "trainers": {
+      "type": "string"
+    },
+    "videoid": {
+      "type": "string"
+    },
+    "contenido": {
+      "type": "string"
+    },
+    "acerca": {
+      "type": "text"
+    },
+    "ojetivoTituloUno": {
+      "type": "string"
+    },
+    "ojetivoTextoUno": {
+      "type": "text"
+    },
+    "ojetivoTituloDos": {
+      "type": "string"
+    },
+    "ojetivoTextoDos": {
+      "type": "text"
+    },
+    "ojetivoTituloTres": {
+      "type": "string"
+    },
+    "ojetivoTextoTres": {
+      "type": "text"
+    },
+    "perfilTituloUno": {
+      "type": "string"
+    },
+    "perfilTextoUno": {
+      "type": "text"
+    },
+    "perfilTituloDos": {
+      "type": "string"
+    },
+    "perfilTextoDos": {
+      "type": "text"
+    },
+    "perfilTituloTres": {
+      "type": "string"
+    },
+    "perfilTextoTres": {
+      "type": "text"
+    },
+    "precio": {
+      "type": "biginteger"
+    },
+    "acercaCurso": {
+      "type": "blocks"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "cursosEmbudo"
+    }
+  }
+}

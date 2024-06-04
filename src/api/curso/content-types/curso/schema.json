@@ -8,32 +8,49 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "Nombre": {
+    "nombre": {
       "type": "string"
     },
-    "Descripcion": {
-      "type": "string"
+    "descripcion": {
+      "type": "text"
     },
-    "Imagen": {
-      "type": "string"
-    },
-    "Modalidad": {
-      "type": "enumeration",
-      "enum": [
-        "Online",
-        "Presencial",
-        "Hibrido"
-      ]
-    },
-    "Precio": {
+    "precio": {
       "type": "biginteger"
     },
-    "duracion": {
+    "categoria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categoria.categoria"
+    },
+    "objetivoTexto": {
+      "type": "text"
+    },
+    "perfilTexto": {
+      "type": "text"
+    },
+    "modulos": {
+      "type": "json"
+    },
+    "profesional": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profesional.profesional"
+    },
+    "acerca_curso": {
+      "type": "blocks"
+    },
+    "videoid": {
       "type": "string"
+    },
+    "duracion": {
+      "type": "integer"
+    },
+    "dirigido": {
+      "type": "blocks"
     }
   }
 }

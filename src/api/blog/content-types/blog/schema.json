@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog",
     "pluralName": "blogs",
-    "displayName": "Blog"
+    "displayName": "Blog",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,6 +23,37 @@
     },
     "cuerpo": {
       "type": "blocks"
+    },
+    "subtitulo": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "cursos_formacion": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cursos-formacion.cursos-formacion"
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categoria.categoria"
+    },
+    "profesional": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profesional.profesional"
+    },
+    "cursosEmbudo": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::cursos-formacion.cursos-formacion",
+      "inversedBy": "blogs"
+    },
+    "destacada": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
