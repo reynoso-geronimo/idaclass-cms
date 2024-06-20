@@ -93,11 +93,32 @@
     "acercaCurso": {
       "type": "blocks"
     },
+    "precioBo": {
+      "type": "biginteger"
+    },
+    "precioUy": {
+      "type": "biginteger"
+    },
     "blogs": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::blog.blog",
-      "mappedBy": "cursosEmbudo"
+      "mappedBy": "cursos_embudo"
+    },
+    "cuotas": {
+      "type": "integer"
+    },
+    "precioPresencial": {
+      "type": "biginteger"
+    },
+    "precioPresencialBo": {
+      "type": "biginteger"
+    },
+    "precioPresencialUy": {
+      "type": "biginteger"
+    },
+    "descuento": {
+      "type": "integer"
     }
   }
 }

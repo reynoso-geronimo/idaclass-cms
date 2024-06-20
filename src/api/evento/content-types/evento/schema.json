@@ -30,6 +30,9 @@
     },
     "cuerpo": {
       "type": "blocks"
+    },
+    "subtitulo": {
+      "type": "text"
     }
   }
 }

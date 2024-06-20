@@ -70,6 +70,27 @@
     },
     "family_name": {
       "type": "string"
+    },
+    "pais": {
+      "type": "string"
+    },
+    "estadoProvincia": {
+      "type": "string"
+    },
+    "localidad": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "biginteger"
+    },
+    "dni": {
+      "type": "biginteger"
+    },
+    "dob": {
+      "type": "date"
     }
   }
 }

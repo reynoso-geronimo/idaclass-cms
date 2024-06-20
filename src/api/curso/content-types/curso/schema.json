@@ -51,6 +51,12 @@
     },
     "dirigido": {
       "type": "blocks"
+    },
+    "precioBo": {
+      "type": "biginteger"
+    },
+    "precioUy": {
+      "type": "biginteger"
     }
   }
 }

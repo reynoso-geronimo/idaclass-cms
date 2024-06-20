@@ -752,6 +752,13 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     given_name: Attribute.String;
     family_name: Attribute.String;
+    pais: Attribute.String;
+    estadoProvincia: Attribute.String;
+    localidad: Attribute.String;
+    direccion: Attribute.String;
+    telefono: Attribute.BigInteger;
+    dni: Attribute.BigInteger;
+    dob: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -802,12 +809,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
       'oneToOne',
       'api::profesional.profesional'
     >;
-    cursosEmbudo: Attribute.Relation<
+    destacada: Attribute.Boolean & Attribute.DefaultTo<false>;
+    cursos_embudo: Attribute.Relation<
       'api::blog.blog',
       'manyToMany',
       'api::cursos-formacion.cursos-formacion'
     >;
-    destacada: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -880,6 +887,8 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     videoid: Attribute.String;
     duracion: Attribute.Integer;
     dirigido: Attribute.Blocks;
+    precioBo: Attribute.BigInteger;
+    precioUy: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -938,11 +947,18 @@ export interface ApiCursosFormacionCursosFormacion
     perfilTextoTres: Attribute.Text;
     precio: Attribute.BigInteger;
     acercaCurso: Attribute.Blocks;
+    precioBo: Attribute.BigInteger;
+    precioUy: Attribute.BigInteger;
     blogs: Attribute.Relation<
       'api::cursos-formacion.cursos-formacion',
       'manyToMany',
       'api::blog.blog'
     >;
+    cuotas: Attribute.Integer;
+    precioPresencial: Attribute.BigInteger;
+    precioPresencialBo: Attribute.BigInteger;
+    precioPresencialUy: Attribute.BigInteger;
+    descuento: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -981,6 +997,7 @@ export interface ApiEventoEvento extends Schema.CollectionType {
       'api::profesional.profesional'
     >;
     cuerpo: Attribute.Blocks;
+    subtitulo: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1045,6 +1062,8 @@ export interface ApiVentaVenta extends Schema.CollectionType {
     monto: Attribute.Decimal;
     descripcion: Attribute.String;
     userId: Attribute.BigInteger;
+    paymentIdPaypal: Attribute.String;
+    pagoModalidad: Attribute.String & Attribute.DefaultTo<'pagoTotal'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

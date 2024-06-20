@@ -45,15 +45,15 @@
       "relation": "oneToOne",
       "target": "api::profesional.profesional"
     },
-    "cursosEmbudo": {
+    "destacada": {
+      "type": "boolean",
+      "default": false
+    },
+    "cursos_embudo": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::cursos-formacion.cursos-formacion",
       "inversedBy": "blogs"
-    },
-    "destacada": {
-      "type": "boolean",
-      "default": false
     }
   }
 }

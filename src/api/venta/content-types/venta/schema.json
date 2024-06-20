@@ -25,6 +25,13 @@
     },
     "userId": {
       "type": "biginteger"
+    },
+    "paymentIdPaypal": {
+      "type": "string"
+    },
+    "pagoModalidad": {
+      "type": "string",
+      "default": "pagoTotal"
     }
   }
 }
