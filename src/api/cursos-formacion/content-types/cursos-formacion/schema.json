@@ -119,6 +119,9 @@
     },
     "descuento": {
       "type": "integer"
+    },
+    "precioUsd": {
+      "type": "biginteger"
     }
   }
 }

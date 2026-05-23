@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sedes",
+  "info": {
+    "singularName": "sede",
+    "pluralName": "sedes",
+    "displayName": "Sedes",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "linkredes": {
+      "type": "string"
+    },
+    "linkmaps": {
+      "type": "string"
+    },
+    "zona": {
+      "type": "enumeration",
+      "enum": [
+        "CABA",
+        "Zona Norte",
+        "Zona Oeste",
+        "Zona Sur",
+        "Interior",
+        "Bolivia",
+        "Uruguay"
+      ]
+    },
+    "imagen": {
+      "type": "string"
+    }
+  }
+}

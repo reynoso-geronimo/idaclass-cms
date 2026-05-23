@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contactos",
+  "info": {
+    "singularName": "contacto",
+    "pluralName": "contactos",
+    "displayName": "Contacto",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "apellido": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "curso": {
+      "type": "string"
+    },
+    "utm_source": {
+      "type": "string"
+    },
+    "utm_medium": {
+      "type": "string"
+    },
+    "utm_campaign": {
+      "type": "string"
+    },
+    "utm_term": {
+      "type": "string"
+    },
+    "utm_content": {
+      "type": "string"
+    },
+    "landing": {
+      "type": "string"
+    }
+  }
+}

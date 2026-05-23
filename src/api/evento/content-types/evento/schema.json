@@ -33,6 +33,18 @@
     },
     "subtitulo": {
       "type": "text"
+    },
+    "speakers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::speaker.speaker",
+      "inversedBy": "eventos"
+    },
+    "walink": {
+      "type": "string"
+    },
+    "videoLink": {
+      "type": "string"
     }
   }
 }

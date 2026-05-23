@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "horarios",
+  "info": {
+    "singularName": "horario",
+    "pluralName": "horarios",
+    "displayName": "Horario",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cursos_formacion": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cursos-formacion.cursos-formacion"
+    },
+    "sede": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sede.sede"
+    },
+    "dia": {
+      "type": "string"
+    },
+    "hora": {
+      "type": "time"
+    }
+  }
+}

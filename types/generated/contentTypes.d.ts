@@ -855,6 +855,46 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
   };
 }
 
+export interface ApiContactoContacto extends Schema.CollectionType {
+  collectionName: 'contactos';
+  info: {
+    singularName: 'contacto';
+    pluralName: 'contactos';
+    displayName: 'Contacto';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    nombre: Attribute.String;
+    apellido: Attribute.String;
+    telefono: Attribute.String;
+    email: Attribute.String;
+    curso: Attribute.String;
+    utm_source: Attribute.String;
+    utm_medium: Attribute.String;
+    utm_campaign: Attribute.String;
+    utm_term: Attribute.String;
+    utm_content: Attribute.String;
+    landing: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contacto.contacto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contacto.contacto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCursoCurso extends Schema.CollectionType {
   collectionName: 'cursos';
   info: {
@@ -878,9 +918,9 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     objetivoTexto: Attribute.Text;
     perfilTexto: Attribute.Text;
     modulos: Attribute.JSON;
-    profesional: Attribute.Relation<
+    profesionals: Attribute.Relation<
       'api::curso.curso',
-      'oneToOne',
+      'manyToMany',
       'api::profesional.profesional'
     >;
     acerca_curso: Attribute.Blocks;
@@ -889,6 +929,11 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     dirigido: Attribute.Blocks;
     precioBo: Attribute.BigInteger;
     precioUy: Attribute.BigInteger;
+    descuento: Attribute.Integer &
+      Attribute.SetMinMax<{
+        max: 100;
+      }> &
+      Attribute.DefaultTo<25>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -959,6 +1004,7 @@ export interface ApiCursosFormacionCursosFormacion
     precioPresencialBo: Attribute.BigInteger;
     precioPresencialUy: Attribute.BigInteger;
     descuento: Attribute.Integer;
+    precioUsd: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -998,6 +1044,13 @@ export interface ApiEventoEvento extends Schema.CollectionType {
     >;
     cuerpo: Attribute.Blocks;
     subtitulo: Attribute.Text;
+    speakers: Attribute.Relation<
+      'api::evento.evento',
+      'manyToMany',
+      'api::speaker.speaker'
+    >;
+    walink: Attribute.String;
+    videoLink: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1008,6 +1061,47 @@ export interface ApiEventoEvento extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::evento.evento',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHorarioHorario extends Schema.CollectionType {
+  collectionName: 'horarios';
+  info: {
+    singularName: 'horario';
+    pluralName: 'horarios';
+    displayName: 'Horario';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cursos_formacion: Attribute.Relation<
+      'api::horario.horario',
+      'oneToOne',
+      'api::cursos-formacion.cursos-formacion'
+    >;
+    sede: Attribute.Relation<
+      'api::horario.horario',
+      'oneToOne',
+      'api::sede.sede'
+    >;
+    dia: Attribute.String;
+    hora: Attribute.Time;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::horario.horario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::horario.horario',
       'oneToOne',
       'admin::user'
     > &
@@ -1029,6 +1123,11 @@ export interface ApiProfesionalProfesional extends Schema.CollectionType {
   attributes: {
     nombre: Attribute.String & Attribute.Required;
     titulo: Attribute.String & Attribute.Required;
+    cursos: Attribute.Relation<
+      'api::profesional.profesional',
+      'manyToMany',
+      'api::curso.curso'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1039,6 +1138,79 @@ export interface ApiProfesionalProfesional extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::profesional.profesional',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSedeSede extends Schema.CollectionType {
+  collectionName: 'sedes';
+  info: {
+    singularName: 'sede';
+    pluralName: 'sedes';
+    displayName: 'Sedes';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    nombre: Attribute.String;
+    direccion: Attribute.String;
+    linkredes: Attribute.String;
+    linkmaps: Attribute.String;
+    zona: Attribute.Enumeration<
+      [
+        'CABA',
+        'Zona Norte',
+        'Zona Oeste',
+        'Zona Sur',
+        'Interior',
+        'Bolivia',
+        'Uruguay'
+      ]
+    >;
+    imagen: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::sede.sede', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::sede.sede', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSpeakerSpeaker extends Schema.CollectionType {
+  collectionName: 'speakers';
+  info: {
+    singularName: 'speaker';
+    pluralName: 'speakers';
+    displayName: 'Speaker';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    nombre: Attribute.String & Attribute.Required;
+    titulo: Attribute.String;
+    bio: Attribute.Text;
+    eventos: Attribute.Relation<
+      'api::speaker.speaker',
+      'manyToMany',
+      'api::evento.evento'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::speaker.speaker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::speaker.speaker',
       'oneToOne',
       'admin::user'
     > &
@@ -1101,10 +1273,14 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog.blog': ApiBlogBlog;
       'api::categoria.categoria': ApiCategoriaCategoria;
+      'api::contacto.contacto': ApiContactoContacto;
       'api::curso.curso': ApiCursoCurso;
       'api::cursos-formacion.cursos-formacion': ApiCursosFormacionCursosFormacion;
       'api::evento.evento': ApiEventoEvento;
+      'api::horario.horario': ApiHorarioHorario;
       'api::profesional.profesional': ApiProfesionalProfesional;
+      'api::sede.sede': ApiSedeSede;
+      'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::venta.venta': ApiVentaVenta;
     }
   }

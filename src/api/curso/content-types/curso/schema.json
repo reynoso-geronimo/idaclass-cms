@@ -35,10 +35,11 @@
     "modulos": {
       "type": "json"
     },
-    "profesional": {
+    "profesionals": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::profesional.profesional"
+      "relation": "manyToMany",
+      "target": "api::profesional.profesional",
+      "inversedBy": "cursos"
     },
     "acerca_curso": {
       "type": "blocks"
@@ -57,6 +58,11 @@
     },
     "precioUy": {
       "type": "biginteger"
+    },
+    "descuento": {
+      "type": "integer",
+      "default": 25,
+      "max": 100
     }
   }
 }
