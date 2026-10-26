@@ -122,6 +122,12 @@
     },
     "precioUsd": {
       "type": "biginteger"
+    },
+    "avisoInscripcionOnline": {
+      "type": "string"
+    },
+    "avisoInscripcionPresencial": {
+      "type": "string"
     }
   }
 }

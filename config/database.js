@@ -88,5 +88,12 @@ module.exports = ({ env }) => {
       ...connections[client],
       acquireConnectionTimeout: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
     },
+    // Esta DB es compartida con el sitio (repo idaclassacademy), que tiene tablas y columnas
+    // que Strapi no conoce, como registros_evento y las columnas de Nave en ventas.
+    // Con forceMigration en true (default de Strapi), cualquier cambio de esquema hace que
+    // Strapi las borre al arrancar. En false no borra tablas, columnas ni indices que no conozca.
+    settings: {
+      forceMigration: false,
+    },
   };
 };

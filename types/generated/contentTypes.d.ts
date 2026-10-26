@@ -1005,6 +1005,8 @@ export interface ApiCursosFormacionCursosFormacion
     precioPresencialUy: Attribute.BigInteger;
     descuento: Attribute.Integer;
     precioUsd: Attribute.BigInteger;
+    avisoInscripcionOnline: Attribute.String;
+    avisoInscripcionPresencial: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
